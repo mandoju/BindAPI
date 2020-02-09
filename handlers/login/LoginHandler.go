@@ -1,17 +1,17 @@
-package handlers
+package login
 
 import (
 	"encoding/json"
-	"fmt"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/mandoju/BindAPI/models"
+	"github.com/mandoju/BindAPI/utils"
 	"net/http"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
-var jwtKey = []byte("my_secret_key")
+var jwtKey, _ = utils.GetJwtKey()
 
-//Usuários HardCoded
+// Users HardCoded
 var users = map[string]string{
 	"user1": "password1",
 	"user2": "password2",
@@ -27,12 +27,6 @@ type LoginHandlerInput struct {
 type LoginHandlerOutput struct {
 	Username string `json:"username"`
 	Token    string `json:"token"`
-}
-
-// JWTClaims is the structure of given JWT token
-type JWTClaims struct {
-	Username string `json:"username"`
-	jwt.StandardClaims
 }
 
 // LoginHandler is the handle that offers the user a jwt token given the right login/password
@@ -54,10 +48,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// AND, if it is the same as the password we received, the we can move ahead
 	// if NOT, then we return an "Unauthorized" status
 	if !ok || expectedPassword != creds.Password {
-		fmt.Println(ok)
-		fmt.Println(expectedPassword)
-		fmt.Println(creds.Password)
-
+		
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
@@ -66,7 +57,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// here, we have kept it as 5 minutes
 	expirationTime := time.Now().Add(5 * time.Minute)
 	// Create the JWT claims, which includes the username and expiry time
-	claims := &JWTClaims{
+	claims := &models.Claims{
 		Username: creds.Username,
 		StandardClaims: jwt.StandardClaims{
 			// In JWT, the expiry time is expressed as unix milliseconds

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/mandoju/BindAPI/handlers"
-	"net/http"
 	"github.com/gorilla/mux"
+	"github.com/mandoju/BindAPI/handlers/login"
+	"net/http"
 )
 
 func get(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +21,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := mux.NewRouter()
 	//api := r.PathPrefix("/").Subrouter()
-	r.HandleFunc("/login", handlers.LoginHandler).Methods(http.MethodPost)
+	r.HandleFunc("/login", login.LoginHandler).Methods(http.MethodPost)
 	r.HandleFunc("/", get).Methods(http.MethodGet)
 	http.ListenAndServe(":8080", r)
 
