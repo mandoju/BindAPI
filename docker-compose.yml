@@ -1,0 +1,26 @@
+
+version: '2'
+
+services:
+
+  mysql:
+    image: mariadb:10.1.19
+    ports:
+      - 8083:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: wp
+
+  bind:
+    image: sameersbn/bind:latest
+    dns: 127.0.0.1
+    environment:
+      - ROOT_PASSWORD=SecretPassword
+    ports:
+      - 172.17.42.1:10000:10000
+      - 172.17.42.1:53:53/udp
+    volumes:
+      - /srv/docker/bind:/data
+
+
