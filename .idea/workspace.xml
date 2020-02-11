@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="61916354-0a18-4f52-bd74-2fce5b168870" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/config/DNS.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/getConfiguration.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/getConfiguration.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+        <option value="tsconfig.json" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\projetos\Gotraining\src\github.com\mandoju\BindAPI" />
+    </key>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="739" y="160" key="com.goide.refactor.move.GoMoveDeclarationDialog" timestamp="1581383535420">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="739" y="160" key="com.goide.refactor.move.GoMoveDeclarationDialog/0.0.1920.1160/-1920.0.1920.1040@0.0.1920.1160" timestamp="1581383535420" />
+    <state x="623" y="255" width="672" height="678" key="search.everywhere.popup" timestamp="1581381410654">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="623" y="255" width="672" height="678" key="search.everywhere.popup/0.0.1920.1160/-1920.0.1920.1040@0.0.1920.1160" timestamp="1581381410654" />
+  </component>
+</project>

@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/mandoju/BindAPI/handlers/login"
 	"github.com/mandoju/BindAPI/utils/Database"
+	"github.com/mandoju/BindAPI/handlers/domain"
 	"net/http"
 )
 
@@ -21,7 +23,10 @@ func main() {
 	r.HandleFunc("/login", login.LoginHandler).Methods(http.MethodPost)
 	r.HandleFunc("/refresh", login.RefreshHandler).Methods(http.MethodPost)
 	r.HandleFunc("/register", login.RegisterHandler).Methods(http.MethodPost)
+	r.HandleFunc("/domains", domain.GetDomainHandler).Methods(http.MethodGet)
 	r.HandleFunc("/", get).Methods(http.MethodGet)
-	http.ListenAndServe(":8080", r)
-
+	err := http.ListenAndServe(":8080", r)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
