@@ -5,6 +5,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mandoju/BindAPI/models"
 	"github.com/mandoju/BindAPI/utils"
+	"github.com/mandoju/BindAPI/utils/Database"
 	"net/http"
 	"time"
 )
@@ -41,17 +42,29 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get the expected password from our in memory map
-	expectedPassword, ok := users[creds.Username]
+	// Get the expected password from our database
+	stmt, err := Database.Db.Prepare("SELECT username from users where username = ? AND password = ?")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		panic(err.Error())
+	}
 
-	// If a password exists for the given user
-	// AND, if it is the same as the password we received, the we can move ahead
-	// if NOT, then we return an "Unauthorized" status
-	if !ok || expectedPassword != creds.Password {
-		
+	user, err := stmt.Query(creds.Username, creds.Password)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		panic(err.Error())
+	}
+	if !user.Next() {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
+	// If a password exists for the given user
+	// AND, if it is the same as the password we received, the we can move ahead
+	// if NOT, then we return an "Unauthorized" status
+	//if !ok || expectedPassword != creds.Password {
+	//	w.WriteHeader(http.StatusUnauthorized)
+	//	return
+	//}
 
 	// Declare the expiration time of the token
 	// here, we have kept it as 5 minutes
