@@ -1,6 +1,7 @@
 package login
 
 import (
+	"database/sql"
 	"encoding/json"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mandoju/BindAPI/models"
@@ -43,29 +44,30 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get the expected password from our database
-	stmt, err := Database.Db.Prepare("SELECT username from users where username = ? AND password = ?")
-	if err != nil {
+	result, err := Database.Db.Query("SELECT username, password from users where username = ?", creds.Username)
+	//fmt.Println(result)
+	if err == sql.ErrNoRows {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	} else if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		panic(err.Error())
 	}
-
-	user, err := stmt.Query(creds.Username, creds.Password)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		panic(err.Error())
-	}
-	if !user.Next() {
+	//defer result.Close()
+	if !result.Next() {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	// If a password exists for the given user
-	// AND, if it is the same as the password we received, the we can move ahead
-	// if NOT, then we return an "Unauthorized" status
-	//if !ok || expectedPassword != creds.Password {
-	//	w.WriteHeader(http.StatusUnauthorized)
-	//	return
-	//}
-
+	var username string
+	var password string
+	errResult := result.Scan(&username, &password)
+	if errResult != nil {
+		panic(errResult.Error())
+	}
+	if !utils.ComparePasswords(password, creds.Password) {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 	// Declare the expiration time of the token
 	// here, we have kept it as 5 minutes
 	expirationTime := time.Now().Add(5 * time.Minute)

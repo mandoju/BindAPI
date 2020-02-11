@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mandoju/BindAPI/models"
+	"github.com/mandoju/BindAPI/utils"
 	"github.com/mandoju/BindAPI/utils/Database"
 	"net/http"
 	"time"
@@ -55,7 +56,8 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = stmtt.Exec(input.Username, input.Password, input.Email)
+	password := utils.HashAndSalt(input.Password)
+	_, err = stmtt.Exec(input.Username, password, input.Email)
 	if err != nil {
 		fmt.Println(err.Error())
 
