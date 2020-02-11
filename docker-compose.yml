@@ -22,5 +22,11 @@ services:
       - 172.17.42.1:53:53/udp
     volumes:
       - /srv/docker/bind:/data
+  backend:
+    image: golang:latest
+    volumes:
+      - .:/go/src/bindAPI
+    working_dir: .
+    command: go run main.go
 
 
