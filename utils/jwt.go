@@ -8,7 +8,7 @@ import (
 
 var jwtKey, _ = GetJwtKey()
 
-func checkJwtToken(r *http.Request) (string,int) {
+func checkJwtToken(r *http.Request) (string, int) {
 	// Check if cookie has token value
 	c, err := r.Cookie("token")
 	if err != nil {

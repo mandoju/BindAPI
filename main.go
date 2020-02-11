@@ -14,7 +14,7 @@ func get(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	Database.InitializeDb();
+	Database.InitializeDb()
 	defer Database.Db.Close()
 	r := mux.NewRouter()
 	//api := r.PathPrefix("/").Subrouter()

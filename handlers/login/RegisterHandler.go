@@ -10,12 +10,11 @@ import (
 	"time"
 )
 
-
 // RegisterHandlerInput  is the structure oof the JSON input of loginHandler
 type RegisterHandlerInput struct {
 	Password string `json:"password"`
 	Username string `json:"username"`
-	Email string `json:"email"`
+	Email    string `json:"email"`
 }
 
 // RegisterHandlerOutput is the structure oof the JSON output of loginHandler
@@ -34,7 +33,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 
-	stmt , err := Database.Db.Prepare("SELECT username from users where username = ?")
+	stmt, err := Database.Db.Prepare("SELECT username from users where username = ?")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		panic(err.Error())
@@ -45,21 +44,18 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 
-
-	usernames , err := stmt.Query(input.Username)
+	usernames, err := stmt.Query(input.Username)
 	if err != nil {
 		fmt.Println(err.Error())
 
 		panic(err.Error())
 	}
-	if(usernames.Next()){
+	if usernames.Next() {
 		w.WriteHeader(http.StatusForbidden)
 		return
 	}
 
-
-
-	_, err = stmtt.Exec(input.Username,input.Password,input.Email)
+	_, err = stmtt.Exec(input.Username, input.Password, input.Email)
 	if err != nil {
 		fmt.Println(err.Error())
 

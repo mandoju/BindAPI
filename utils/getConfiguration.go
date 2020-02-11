@@ -9,7 +9,7 @@ import (
 )
 
 //GetJwtKey gets the secret from configuration file
-func GetJwtKey() ([]byte,error) {
+func GetJwtKey() ([]byte, error) {
 	path := "./config/JWT.json"
 	file, err := os.Open(path)
 	if err != nil {
@@ -28,7 +28,7 @@ func GetJwtKey() ([]byte,error) {
 	err = json.Unmarshal(byteValue, &configuration)
 	if err != nil {
 		fmt.Println(err)
-		return nil,err
+		return nil, err
 	}
 	secret := []byte(configuration.Secret)
 	return secret, nil

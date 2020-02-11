@@ -14,8 +14,12 @@ func InitializeDb() {
 	if err != nil {
 		panic(err.Error())
 	}
-	file , err := ioutil.ReadFile("./query/createUsersTable.sql")
-	if err != nil { panic(err.Error()) }
+	file, err := ioutil.ReadFile("./query/createUsersTable.sql")
+	if err != nil {
+		panic(err.Error())
+	}
 	_, err = Db.Exec(string(file))
-	if err != nil { panic(err.Error()) }
+	if err != nil {
+		panic(err.Error())
+	}
 }
