@@ -2,17 +2,19 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/mandoju/BindAPI/models/config"
 	"io/ioutil"
 	"os"
 )
 
 //GetJwtKey gets the secret from configuration file
-func GetJwtKey() (string,error) {
-	path := "../config/JWT.json"
+func GetJwtKey() ([]byte, error) {
+	path := "./config/JWT.json"
 	file, err := os.Open(path)
 	if err != nil {
-		return "", err
+		fmt.Println(err)
+		return nil, err
 	}
 	defer file.Close()
 	// read our opened xmlFile as a byte array.
@@ -25,7 +27,9 @@ func GetJwtKey() (string,error) {
 	// jsonFile's content into 'users' which we defined above
 	err = json.Unmarshal(byteValue, &configuration)
 	if err != nil {
-		return "",err
+		fmt.Println(err)
+		return nil, err
 	}
-	return configuration.Secret, nil
+	secret := []byte(configuration.Secret)
+	return secret, nil
 }

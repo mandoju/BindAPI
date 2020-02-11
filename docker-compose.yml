@@ -11,7 +11,7 @@ services:
       - ./mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: wp
-
+      MYSQL_DATABASE: bind
   bind:
     image: sameersbn/bind:latest
     dns: 127.0.0.1
